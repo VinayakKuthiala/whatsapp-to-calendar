@@ -15,7 +15,7 @@ from webhook.services import send_whatsapp_message
 
 def google_login(request):
     phone_number = request.GET.get('phone')
-    print("CLIENT_ID:", settings.GOOGLE_CLIENT_ID)
+    # print("CLIENT_ID:", settings.GOOGLE_CLIENT_ID)
     # User visits /auth/google?phone=917820851066
     # request.GET is a dict of URL query parameters
 

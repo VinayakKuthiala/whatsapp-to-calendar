@@ -30,7 +30,7 @@ class WhatsAppWebhookView(APIView):
     # Meta calls this every time a user sends a message
     def post(self, request):
         data = request.data
-        print("CALLING SEND FUNCTION")
+        # print("CALLING SEND FUNCTION")
         # Navigate the nested JSON to get the message text
         try:
             entry = data['entry'][0]

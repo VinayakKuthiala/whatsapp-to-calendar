@@ -25,9 +25,9 @@ GOOGLE_REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
 GOOGLE_TOKEN_URI = os.getenv("GOOGLE_TOKEN_URI")
 GOOGLE_AUTH_URI = os.getenv("GOOGLE_AUTH_URI")
 
-print("WHATSAPP TOKEN:", os.getenv("WHATSAPP_ACCESS_TOKEN"))
-print("GOOGLE RAW:", os.getenv("GOOGLE_CLIENT_ID"))
-print("REDIRECT URI BEING SENT:", GOOGLE_REDIRECT_URI)
+# print("WHATSAPP TOKEN:", os.getenv("WHATSAPP_ACCESS_TOKEN"))
+# print("GOOGLE RAW:", os.getenv("GOOGLE_CLIENT_ID"))
+# print("REDIRECT URI BEING SENT:", GOOGLE_REDIRECT_URI)
 
 
 # Quick-start development settings - unsuitable for production
