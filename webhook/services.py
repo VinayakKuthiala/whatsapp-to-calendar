@@ -47,14 +47,17 @@ def handle_message(phone_number: str, text: str):
     # Parse the message text into structured event data
     event_data = parse_event_from_message(text)
 
-    if not event_data:
-        # Parser couldn't find a date/time in the message
-        send_whatsapp_message(
-            phone_number=phone_number,
-            message="I couldn't understand the date/time. Try: 'Meeting tomorrow at 5pm'"
-        )
-        return
+    # if not event_data:
+    #     # Parser couldn't find a date/time in the message
+    #     send_whatsapp_message(
+    #         phone_number=phone_number,
+    #         message="I couldn't understand the message."
+    #     )
+    #     return
 
+    if isinstance(event_data,str): #check if there was an error that is a string was being sent
+        send_whatsapp_message(phone_number, event_data)
+        return
     # Everything looks good — create the event!
     event_link = create_calendar_event(access_token=token, event_data=event_data, phone_number=phone_number)
 

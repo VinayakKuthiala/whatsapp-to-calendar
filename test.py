@@ -62,7 +62,7 @@ def parse_event_from_message(text: str) -> dict | str:
         pattern = rf'^\s*{re.escape(field)}\s*[;\-=]\s*(.+)$'
         if re.search(pattern, text, re.IGNORECASE | re.MULTILINE):
             return (
-                "Please use : not ;/ - / = / as the separator. Example:\n\n"
+                "Please use : not ;/-/=/ as the separator. Example:\n\n"
                 "Title: Meeting with friends\n"
                 "Date: 25/4/2026\n"
                 "Start: 6:00pm\n"
@@ -75,13 +75,10 @@ def parse_event_from_message(text: str) -> dict | str:
     if not title: 
         return "Title is required. Please include:\nTitle: Your event name"
 
-    # today = datetime.now()
-
-    import pytz #Django's timezone conversion can be unreliable in this context. Just bypass Django entirely and use pytz directly
-    IST = pytz.timezone('Asia/Kolkata') # for now in testing pahse set to india 
-    today = datetime.now(IST).replace(tzinfo=None)
+    today = datetime.now()
     
-    # today = datetime.now()
+    from django.utils import timezone
+    # today = timezone.localtime(timezone.now()).replace(tzinfo=None)
     
     #--- Parse date if given ---
     if date_str:
@@ -106,7 +103,7 @@ def parse_event_from_message(text: str) -> dict | str:
         time_struct,staus = cal.parse(start_str)
         if staus == 0:
             return (
-                "Could not understand the start time. Try:\n"
+                "❌ Could not understand the start time. Try:\n"
                 "Start: 4pm\nStart: 16:00"
             )
         parsed_start = datetime(*time_struct[:6])
@@ -116,8 +113,7 @@ def parse_event_from_message(text: str) -> dict | str:
             return (
                 f"❌ {start_hour:02d}:{start_minute:02d} has already passed for today. "
                 f"Please set a time in the future, or set a date in future:\n"
-                f"Date: tomorrow\n"
-                f"Start: {start_hour+1}"
+                f"Date: tomorrow"
             )
     else:
         start_hour, start_minute = None, None # Default start_time depends on the curr time
@@ -234,8 +230,11 @@ def extract_field(text: str, field_names: list) -> str | None:
     
     return None     # field not found in message
 
-# msg = """Title: Meeting with friends\n
-# start : 9pm
-# """
+msg = """Title: Meeting with friends\n
+"""
 
-# print(parse_event_from_message(msg))
+print(parse_event_from_message(msg))
+
+from datetime import datetime
+print("-------------------------")
+print(datetime.now())
